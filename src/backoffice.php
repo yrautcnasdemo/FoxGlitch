@@ -58,23 +58,26 @@
                                         <span>Title:</span> <input type="text">
                                     </div>
                                     <div>
-                                        <label for="dropdown">Category:</label>
-                                            <select id="dropdown" name="options">
-                                                <option value="option1">Manga</option>
-                                                <option value="option2">Comics</option>
-                                            </select>
+                                        <label for="categorySelect">Category:</label>
+                                        <select id="categorySelect">
+                                            <option value="Manga">Manga</option>
+                                            <option value="Comics">Comics</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="option-book">
                                     <div>
-                                        <span>Number of published volumes:</span> <input type="number" min="1" max="300">
+                                        <div>
+                                            <label for="volumeCount">Number of published volumes:</label>
+                                            <input type="number" id="volumeCount" min="1" max="300">
+                                        </div>
                                     </div>
                                     <div>
-                                        <label for="dropdown">Publication:</label>
-                                            <select id="dropdown" name="options">
-                                                <option value="option1">Completed</option>
-                                                <option value="option2">Ongoing...</option>
-                                            </select>
+                                        <label for="publicationSelect">Publication:</label>
+                                        <select id="publicationSelect">
+                                            <option value="Completed">Completed</option>
+                                            <option value="Ongoing">Ongoing...</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -92,186 +95,19 @@
 
                             <div class="select-add">
                                 <div class="volumes-panel">
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.001</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.002</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.003</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.004</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.005</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.006</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.007</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.008</label>
-                                        </div>
-                                    </div>
+
+                                    <!--
                                     <div class="vol">
                                         <div class="book-vol">
                                             <input type="checkbox" id="volume"><label for="volume">vol.009</label>
                                         </div>
                                     </div>
-                                    <!-- <div class="vol">
+                                    
+                                    <div class="vol">
                                         <div class="book-vol">
                                             <input type="checkbox" id="volume"><label for="volume">vol.010</label>
                                         </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.011</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.012</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.013</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.014</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.015</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.016</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.017</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.018</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.019</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.020</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.021</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.022</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.023</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.024</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.025</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.026</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.027</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.028</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.029</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.030</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.031</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.032</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.033</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.034</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.035</label>
-                                        </div>
-                                    </div>
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.000</label>
-                                        </div>
-                                    </div> -->
+                                    </div>-->
                                 </div>
                                 
                                 <div>
