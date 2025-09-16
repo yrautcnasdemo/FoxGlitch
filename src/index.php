@@ -1,3 +1,20 @@
+<?php
+// vérification d'envoi de formulaire
+if(!empty($_POST)){
+    if(isset($_POST["username"], $_POST["email"], $_POST["pass"])
+        && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass"])
+    ){
+        // Le formulaire est complet
+    } else {
+        die("Le formulaire est incomplet");
+    }
+}
+
+require_once "connexionBDD.php";
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,26 +95,26 @@
                     <button class="close-modal" data-dismiss="form">X</button>
                 </div>
                 <h2>Register Station</h2>
-                <form action="">
+                <form method="post">
                     <div class="input-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                     </svg>
-                        <input type="text" class="login-input" placeholder="Enter Pseudo" require>
+                        <input type="text" class="login-input" name="username" placeholder="Enter Pseudo" require>
                     </div>
 
                     <div class="input-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                     </svg>
-                        <input type="email" class="login-input" placeholder="YourMail@Adress.com" require>
+                        <input type="email" class="login-input" name="email" placeholder="YourMail@Adress.com" require>
                     </div>
 
                     <div class="input-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
                     </svg>
-                        <input type="password" placeholder="Enter password" class="login-input" require>
+                        <input type="password" name="pass" placeholder="Enter password" class="login-input" require>
                     </div>
 
                     <div class="input-wrapper">
@@ -114,7 +131,7 @@
                         </label>
                     </div>
 
-                    <button class="btn-modal">Create Account</button>
+                    <button type="submit" class="btn-modal">Create Account</button>
                         <p>Already registered ? <a class="loged-modal" role="button" data-target="#modal" data-toggle="modal" href="">Login</a></p>
                 </form>
             </article>
