@@ -5,13 +5,37 @@ if(!empty($_POST)){
         && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass"])
     ){
         // Le formulaire est complet
+        // On récupère les données en les protégeants
+        $pseudo = strip_tags($_POST["username"]);
+
+        // Vérification back-end de l'adresse Email
+        if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+            die("Adresse email incorrect");
+        }
+
+        // Protection mdp
+        $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
+
+        // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 33:20 /////////////////////////////////////////////////////////
+
+        // On enregistre dans la BDD
+        require_once "pdo/connexionBDD.php";
+
+        // protection des données envoyer dans les VALUES
+        $sql = "INSERT INTO `users` (`username`, `email`, `pass`) VALUES (:pseudo, :email, '$pass')";
+
+        $query = $db->prepare($sql);
+
+        $query->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
+        $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
+
+        $query-> execute();
+
+
     } else {
         die("Le formulaire est incomplet");
     }
 }
-
-require_once "connexionBDD.php";
-
 
 ?>
 
