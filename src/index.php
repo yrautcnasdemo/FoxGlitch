@@ -1,40 +1,84 @@
 <?php
-// vérification d'envoi de formulaire
-if(!empty($_POST)){
-    if(isset($_POST["username"], $_POST["email"], $_POST["pass"])
-        && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass"])
-    ){
-        // Le formulaire est complet
-        // On récupère les données en les protégeants
-        $pseudo = strip_tags($_POST["username"]);
+// Choix du formulaire a traiter (Login ou Inscription)
+if ($_POST["form_type"] === "login") {
+// traitement login
 
-        // Vérification back-end de l'adresse Email
-        if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-            die("Adresse email incorrect");
+
+    // vérification d'envoi de formulaire pour connexion
+    if(!empty($_POST)){
+        // Formulaire envoyé
+        // On vérifie que tous les champs requis sont remplis
+        if(isset($_POST["email"], $_POST["pass"]) 
+            && !empty($_POST["email"]) 
+            && !empty($_POST["pass"])
+        ){
+            // On vérifie que l'email en est un
+            if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+                die("Ce n'est pas un email");
+            }
+
+            // On se connecte a la BDD
+            require_once "pdo/connexionBDD.php";
+
+            $sql = "SELECT * FROM `users` WHERE `email` = :email";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
+
+            $query->execute();
+
+            $user = $query->fetch();
+            var_dump($user);die;
         }
-
-        // Protection mdp
-        $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
-
-        // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 33:20 /////////////////////////////////////////////////////////
-
-        // On enregistre dans la BDD
-        require_once "pdo/connexionBDD.php";
-
-        // protection des données envoyer dans les VALUES
-        $sql = "INSERT INTO `users` (`username`, `email`, `pass`) VALUES (:pseudo, :email, '$pass')";
-
-        $query = $db->prepare($sql);
-
-        $query->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
-        $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-
-        $query-> execute();
-
-
-    } else {
-        die("Le formulaire est incomplet");
     }
+
+
+} elseif ($_POST["form_type"] === "register") {
+// traitement inscription
+
+
+    // vérification d'envoi de formulaire pour inscription
+    if(!empty($_POST)){
+        if(isset($_POST["username"], $_POST["email"], $_POST["pass"])
+            && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass"])
+        ){
+            // Le formulaire est complet
+            // On récupère les données en les protégeants
+            $pseudo = strip_tags($_POST["username"]);
+
+            // Vérification back-end de l'adresse Email
+            if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+                die("Adresse email incorrect");
+            }
+
+            // Protection mdp
+            $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
+
+            // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 33:20 /////////////////////////////////////////////////////////
+            
+
+            // On enregistre dans la BDD
+            require_once "pdo/connexionBDD.php";
+
+            // protection des données envoyer dans les VALUES
+            $sql = "INSERT INTO `users` (`username`, `email`, `pass`) VALUES (:pseudo, :email, '$pass')";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
+            $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
+
+            $query-> execute();
+
+            // On connectera l'utilisateur
+
+
+        } else {
+            die("Le formulaire est incomplet");
+        }
+    }
+
 }
 
 ?>
@@ -83,7 +127,8 @@ if(!empty($_POST)){
                     <button class="close-modal" data-dismiss="form">X</button>
                 </div>
                 <h2>Login Station</h2>
-                <form action="">
+                <form method="post">
+                    <input type="hidden" name="form_type" value="login">
                     <div class="input-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -120,6 +165,7 @@ if(!empty($_POST)){
                 </div>
                 <h2>Register Station</h2>
                 <form method="post">
+                    <input type="hidden" name="form_type" value="register">
                     <div class="input-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
