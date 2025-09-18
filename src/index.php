@@ -33,7 +33,18 @@ if ($_POST["form_type"] === "login") {
             $query->execute();
 
             $user = $query->fetch();
-            var_dump($user);die;
+            
+            if(!$user){
+                die("L'utilisateur n'existe pas");
+            }
+
+            // Si on a un user existant, on peux vérifier le mot de passe
+            if(!password_verify($_POST["pass"], $user["pass"])){
+                die("Mot de passe incorrecte");
+            }
+
+            // Ici l'utilisateur et le mot de passe son correcte
+            
         }
     }
 
@@ -59,7 +70,7 @@ if ($_POST["form_type"] === "login") {
             // Protection mdp
             $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
 
-            // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 33:20 /////////////////////////////////////////////////////////
+            // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 42.10 /////////////////////////////////////////////////////////
             
 
             // On enregistre dans la BDD
