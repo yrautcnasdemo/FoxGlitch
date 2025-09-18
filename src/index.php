@@ -84,7 +84,7 @@ if ($_POST["form_type"] === "login") {
             // Protection mdp
             $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
 
-            // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 42.10 /////////////////////////////////////////////////////////
+            // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 1.01.20 /////////////////////////////////////////////////////////
             
 
             // On enregistre dans la BDD
