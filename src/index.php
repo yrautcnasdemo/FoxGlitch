@@ -8,6 +8,7 @@ if ($_POST["form_type"] === "login") {
 // traitement login
 
 
+// FORMULAIRE DE LOGIN
     // vérification d'envoi de formulaire pour connexion
     if(!empty($_POST)){
         // Formulaire envoyé
@@ -43,8 +44,20 @@ if ($_POST["form_type"] === "login") {
                 die("Mot de passe incorrecte");
             }
 
-            // Ici l'utilisateur et le mot de passe son correcte
-            
+            // Ici l'utilisateur et le mot de passe son corrects
+            // On va pouvoir "connecter" l'utilisateur (Ouvrir la session avec la superglobal SESSION)
+            // On démare la session PHP
+            session_start();
+
+            //On stocke dans $_SESSION les informations de l'utilisateur
+            $_SESSION["user"] = [
+                "id" => $user["id"],
+                "pseudo" => $user["username"],
+                "email" => $user["email"]
+            ];
+
+            // On redirige vers la page de profile (par exemple)
+            header("location: profil.php");
         }
     }
 
@@ -52,7 +65,8 @@ if ($_POST["form_type"] === "login") {
 } elseif ($_POST["form_type"] === "register") {
 // traitement inscription
 
-
+    
+// FORMULAIRE D'INCRIPTION
     // vérification d'envoi de formulaire pour inscription
     if(!empty($_POST)){
         if(isset($_POST["username"], $_POST["email"], $_POST["pass"])
@@ -86,7 +100,22 @@ if ($_POST["form_type"] === "login") {
 
             $query-> execute();
 
-            // On connectera l'utilisateur
+            // On récupère l'id du nouvel utilisateur
+            $id = $db->lastInsertId();
+
+
+            // On connecte l'utilisateur et on démare la session PHP
+            session_start();
+
+            //On stocke dans $_SESSION les informations de l'utilisateur
+            $_SESSION["user"] = [
+                "id" => $id,
+                "pseudo" => $pseudo,
+                "email" => $_POST["email"]
+            ];
+
+            // On redirige vers la page de profile (par exemple)
+            header("location: profil.php");
 
 
         } else {
