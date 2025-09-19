@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(isset($_SESSION["user"])){
+    header("Location: profil.php");
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["form_type"])) {
 // Si quelqu’un a soumis un formulaire en POST, et que ce formulaire contient bien un champ form_type, alors on continue =>
 
@@ -47,7 +53,7 @@ if ($_POST["form_type"] === "login") {
             // Ici l'utilisateur et le mot de passe son corrects
             // On va pouvoir "connecter" l'utilisateur (Ouvrir la session avec la superglobal SESSION)
             // On démare la session PHP
-            session_start();
+            // session_start();
 
             //On stocke dans $_SESSION les informations de l'utilisateur
             $_SESSION["user"] = [

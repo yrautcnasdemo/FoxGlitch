@@ -1,3 +1,28 @@
+<?php
+    session_start();
+    // On se connecte a la BDD
+    require_once "pdo/connexionBDD.php";
+
+    if(!empty($_POST)){
+    if(isset($_POST["title"])
+        && !empty($_POST["title"])) {
+
+            $title = strip_tags($_POST["title"]);
+
+            $sql = "INSERT INTO `user_books` (`title`) VALUES (:title)";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(":title", $title, PDO::PARAM_STR);
+
+            $query-> execute();
+
+    } else {
+        die("insert title");
+    }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +44,7 @@
                 <article class="user-profile">
                     <div class="user-pics">
                         <div class="user-info">
-                            <span class="user-name">Judy Alvarez</span>
+                            <span class="user-name"><?= $_SESSION["user"]["pseudo"]?></span>
                             <span class="user-title">Space-Child</span>
                         </div>
                         <img src="assets/images/profiles/profiles_pictures/cute-anime-girl-R.jpg" width="300px" height="500px" alt="profile-pics">
@@ -47,7 +72,7 @@
 
 
                 <section class="backoffice-panel">
-                    
+                  <form method="POST">
                     <article class="starter">
                         <div class="backoffice-intro">
                             <h1>Add Books</h1>
@@ -55,9 +80,10 @@
                             <div class="add-books-panel">
                                 <div class="option-book">
                                     <div>
-                                        <span>Title:</span> <input type="text">
+                                        <span>Title:</span> 
+                                        <input type="text" name="title" required>
                                     </div>
-                                    <div>
+                                    <!-- <div>
                                         <label for="categorySelect">Category:</label>
                                         <select id="categorySelect">
                                             <option value="Manga">Manga</option>
@@ -91,7 +117,7 @@
                                 <div class="checkbox-select-all">
                                     <input type="checkbox" id="collection"><label for="collection">Select All</label>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="select-add">
                                 <div class="volumes-panel">
@@ -111,12 +137,13 @@
                                 </div>
                                 
                                 <div>
-                                    <button class="register-add-btn">Add to my List</button>
+                                    <button type="submit" class="register-add-btn">Add to my List</button>
                                 </div>
                             </div>
 
                         </div>
                     </article>
+                  </form>
 
                     <div class="divider3"></div>
 

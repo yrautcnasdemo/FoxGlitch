@@ -1,6 +1,12 @@
 <?php 
     session_start();
+    // On se connecte a la BDD
+    require_once "pdo/connexionBDD.php";
 
+    $sql = "SELECT * FROM user_books";
+    $query = $db->prepare($sql);
+    $query->execute();
+    $books = $query->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -90,19 +96,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($books as $book) : ?>
                                     <tr>
-                                        <td>Berserk</td>
-                                        <td>N</td>
-                                        <td>49</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gunnm</td>
+                                        <td><?= htmlspecialchars($book["title"]) ?></td>
                                         <td>F</td>
                                         <td>21</td>
                                         <td>Completed</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Gunnm: Last order</td>
                                         <td>F</td>
                                         <td>26</td>
@@ -209,7 +210,8 @@
                                         <td>F</td>
                                         <td>21</td>
                                         <td>Completed</td>
-                                    </tr>
+                                    </tr> -->
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
