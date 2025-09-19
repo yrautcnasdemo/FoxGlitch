@@ -1,5 +1,10 @@
+<?php 
+    session_start();
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +24,7 @@
                 <div class="user-profile">
                     <div class="user-pics">
                         <div class="user-info">
-                            <span class="user-name">Judy Alvarez</span>
+                            <span class="user-name">Welcome <?= $_SESSION["user"]["pseudo"]?></span>
                             <span class="user-title">Space-Child</span>
                         </div>
                         <img src="assets/images/profiles/profiles_pictures/cute-anime-girl-R.jpg" width="300px" height="500px" alt="profile-pics-user">
