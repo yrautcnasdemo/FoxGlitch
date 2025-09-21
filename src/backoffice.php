@@ -4,29 +4,41 @@ require_once "pdo/connexionBDD.php";
 
 if (!empty($_POST)) {
     if (!empty($_POST["title"])) {
+
         $title = strip_tags($_POST["title"]);
-        $user_id = $_SESSION["user"]["id"];
-        $category = $_POST["category"];
-        $volumeCount = (int)$_POST["volume_count"];
-        $publication = $_POST["publication"];
-        
-        $sql = "INSERT INTO user_books (title, user_id, category, volume_count, publication) 
-                VALUES (:title, :user_id, :category, :volume_count, :publication)";
+        $user_id = $_SESSION["user"]["id"]; // ID du user connecté
+
+        // Récupérer les autres champs
+        $category = !empty($_POST["category"]) ? $_POST["category"] : null;
+        $volumeCount = !empty($_POST["volume_count"]) ? (int)$_POST["volume_count"] : 0;
+        $publication = !empty($_POST["publication"]) ? $_POST["publication"] : null;
+
+        // Récupérer les volumes cochés
+        $owned_volumes = !empty($_POST['volumes']) ? $_POST['volumes'] : [];
+        $owned_volumes_json = json_encode($owned_volumes); // JSON pour BDD
+
+        $sql = "INSERT INTO user_books 
+                (title, user_id, category, volume_count, owned_volumes, publication) 
+                VALUES 
+                (:title, :user_id, :category, :volume_count, :owned_volumes, :publication)";
+
         $query = $db->prepare($sql);
         $query->bindValue(":title", $title, PDO::PARAM_STR);
         $query->bindValue(":user_id", $user_id, PDO::PARAM_INT);
         $query->bindValue(":category", $category, PDO::PARAM_STR);
         $query->bindValue(":volume_count", $volumeCount, PDO::PARAM_INT);
+        $query->bindValue(":owned_volumes", $owned_volumes_json, PDO::PARAM_STR);
         $query->bindValue(":publication", $publication, PDO::PARAM_STR);
 
         $query->execute();
 
-        echo "✅ Livre ajouté à ta bibliothèque perso !";
+        echo "✅ Livre ajouté à ta bibliothèque avec les volumes cochés !";
     } else {
         die("⚠️ Merci de remplir au moins le titre !");
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>

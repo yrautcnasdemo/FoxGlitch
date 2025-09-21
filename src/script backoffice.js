@@ -1,13 +1,12 @@
-// Affichage volumes totale enregistrés
 document.addEventListener('DOMContentLoaded', () => {
     const volumeInput = document.getElementById('volumeCount');
     const volumesPanel = document.querySelector('.volumes-panel');
     const selectAllCheckbox = document.getElementById('collection');
 
-    let globalVolumeId = 1; // Compteur global pour IDs uniques
+    let globalVolumeId = 1;
 
     volumeInput.addEventListener('input', () => {
-        volumesPanel.innerHTML = ''; // On vide le panel à chaque changement
+        volumesPanel.innerHTML = ''; 
         const numberOfVolumes = parseInt(volumeInput.value, 10);
 
         if (!isNaN(numberOfVolumes) && numberOfVolumes > 0) {
@@ -21,13 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.id = `volume-${globalVolumeId}`;
-                checkbox.name = `volume-${globalVolumeId}`;
+                checkbox.name = 'volumes[]';  // <-- Important pour PHP
+                checkbox.value = i;           // <-- Le numéro du volume
 
                 const label = document.createElement('label');
                 label.htmlFor = `volume-${globalVolumeId}`;
                 label.textContent = `vol.${String(i).padStart(3, '0')}`;
 
-                globalVolumeId++; // On incrémente le compteur global
+                globalVolumeId++;
 
                 bookVolDiv.appendChild(checkbox);
                 bookVolDiv.appendChild(label);
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Fonction "Select All"
+    // "Select All"
     selectAllCheckbox.addEventListener('change', () => {
         const checkboxes = volumesPanel.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
