@@ -1288,7 +1288,7 @@ th, td {
     padding: 5px;
 }
 .option-book {
-    width: 100%;
+    width: 526px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -1357,6 +1357,7 @@ th, td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .register-add-btn {
     font-family: Rajdhani-sb;
