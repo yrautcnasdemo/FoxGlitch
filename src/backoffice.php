@@ -83,7 +83,7 @@
                                         <span>Title:</span> 
                                         <input type="text" name="title" required>
                                     </div>
-                                    <!-- <div>
+                                    <div>
                                         <label for="categorySelect">Category:</label>
                                         <select id="categorySelect">
                                             <option value="Manga">Manga</option>
@@ -117,7 +117,7 @@
                                 <div class="checkbox-select-all">
                                     <input type="checkbox" id="collection"><label for="collection">Select All</label>
                                 </div>
-                            </div> -->
+                            </div>
 
                             <div class="select-add">
                                 <div class="volumes-panel">
@@ -288,5 +288,5 @@
         <p><a href="index.php">homepage</a> | <a href="project.php">About Site</a> | <a href="">Privacy Policy</a></p>
     </footer>
 </body>
-<script src="script.js"></script>
+<script src="script backoffice.js"></script>
 </html>
