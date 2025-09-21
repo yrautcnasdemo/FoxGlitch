@@ -11,6 +11,8 @@
 
 ?>
 
+<!-- 20 BOOK PAR TABLE MAXIMUM -->
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -102,8 +104,8 @@
                                     <tr>
                                         <td><?= htmlspecialchars($book["title"]) ?></td>
                                         <td>F</td>
-                                        <td>21</td>
-                                        <td>Completed</td>
+                                        <td><?= htmlspecialchars($book["volume_count"]) ?></td>
+                                        <td><?= htmlspecialchars($book["publication"]) ?></td>
                                     </tr>
                                     <!-- <tr>
                                         <td>Gunnm: Last order</td>

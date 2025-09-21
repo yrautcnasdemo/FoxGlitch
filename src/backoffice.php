@@ -1,27 +1,33 @@
 <?php
-    session_start();
-    // On se connecte a la BDD
-    require_once "pdo/connexionBDD.php";
+session_start();
+require_once "pdo/connexionBDD.php";
 
-    if(!empty($_POST)){
-    if(isset($_POST["title"])
-        && !empty($_POST["title"])) {
+if (!empty($_POST)) {
+    if (!empty($_POST["title"])) {
+        $title = strip_tags($_POST["title"]);
+        $user_id = $_SESSION["user"]["id"];
+        $category = $_POST["category"];
+        $volumeCount = (int)$_POST["volume_count"];
+        $publication = $_POST["publication"];
+        
+        $sql = "INSERT INTO user_books (title, user_id, category, volume_count, publication) 
+                VALUES (:title, :user_id, :category, :volume_count, :publication)";
+        $query = $db->prepare($sql);
+        $query->bindValue(":title", $title, PDO::PARAM_STR);
+        $query->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+        $query->bindValue(":category", $category, PDO::PARAM_STR);
+        $query->bindValue(":volume_count", $volumeCount, PDO::PARAM_INT);
+        $query->bindValue(":publication", $publication, PDO::PARAM_STR);
 
-            $title = strip_tags($_POST["title"]);
-            $user_id = $_SESSION["user"]["id"]; // l’ID du user connecté
+        $query->execute();
 
-            $sql = "INSERT INTO user_books (title, user_id) VALUES (:title, :user_id)";
-            $query = $db->prepare($sql);
-            $query->bindValue(":title", $title, PDO::PARAM_STR);
-            $query->bindValue(":user_id", $user_id, PDO::PARAM_INT);
-            $query-> execute();
-
-            echo "✅ Livre ajouté à ta bibliothèque perso !";
+        echo "✅ Livre ajouté à ta bibliothèque perso !";
     } else {
-        die("insert title");
+        die("⚠️ Merci de remplir au moins le titre !");
     }
-    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +91,7 @@
                                     </div>
                                     <div>
                                         <label for="categorySelect">Category:</label>
-                                        <select id="categorySelect">
+                                        <select name="category"  id="categorySelect">
                                             <option value="Manga">Manga</option>
                                             <option value="Comics">Comics</option>
                                         </select>
@@ -95,12 +101,12 @@
                                     <div>
                                         <div>
                                             <label for="volumeCount">Number of published volumes:</label>
-                                            <input type="number" id="volumeCount" min="1" max="300">
+                                            <input type="number" name="volume_count" id="volumeCount" min="1" max="300" required>
                                         </div>
                                     </div>
                                     <div>
                                         <label for="publicationSelect">Publication:</label>
-                                        <select id="publicationSelect">
+                                        <select name="publication" id="publicationSelect">
                                             <option value="Completed">Completed</option>
                                             <option value="Ongoing">Ongoing...</option>
                                         </select>
