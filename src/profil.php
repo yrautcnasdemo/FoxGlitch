@@ -3,10 +3,12 @@
     // On se connecte a la BDD
     require_once "pdo/connexionBDD.php";
 
-    $sql = "SELECT * FROM user_books";
+    $sql = "SELECT * FROM user_books WHERE user_id = :user_id";
     $query = $db->prepare($sql);
+    $query->bindValue(":user_id", $_SESSION["user"]["id"], PDO::PARAM_INT);
     $query->execute();
     $books = $query->fetchAll();
+
 ?>
 
 <!DOCTYPE html>

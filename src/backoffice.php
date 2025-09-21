@@ -8,15 +8,15 @@
         && !empty($_POST["title"])) {
 
             $title = strip_tags($_POST["title"]);
+            $user_id = $_SESSION["user"]["id"]; // l’ID du user connecté
 
-            $sql = "INSERT INTO `user_books` (`title`) VALUES (:title)";
-
+            $sql = "INSERT INTO user_books (title, user_id) VALUES (:title, :user_id)";
             $query = $db->prepare($sql);
-
             $query->bindValue(":title", $title, PDO::PARAM_STR);
-
+            $query->bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $query-> execute();
 
+            echo "✅ Livre ajouté à ta bibliothèque perso !";
     } else {
         die("insert title");
     }
