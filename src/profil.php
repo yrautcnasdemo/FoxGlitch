@@ -100,121 +100,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($books as $book) : ?>
+                                    <?php foreach ($books as $book): ?>
+                                        <?php 
+                                            // Si owned_volumes est NULL ou vide, on met un tableau vide
+                                            $owned = !empty($book["owned_volumes"]) ? json_decode($book["owned_volumes"], true) : [];
+                                            
+                                            // Comparer nombre possédé avec volume_count
+                                            $isFull = (count($owned) === (int)$book["volume_count"]);
+                                        ?>
                                     <tr>
                                         <td><?= htmlspecialchars($book["title"]) ?></td>
-                                        <td>F</td>
+                                        <td><?= $isFull ? "✅" : "❌" ?></td>
                                         <td><?= htmlspecialchars($book["volume_count"]) ?></td>
                                         <td><?= htmlspecialchars($book["publication"]) ?></td>
                                     </tr>
-                                    <!-- <tr>
-                                        <td>Gunnm: Last order</td>
-                                        <td>F</td>
-                                        <td>26</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gunnm: Mars Chronicle</td>
-                                        <td>N</td>
-                                        <td>10</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dragon Ball</td>
-                                        <td>F</td>
-                                        <td>51</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Binbō-gami ga !</td>
-                                        <td>F</td>
-                                        <td>16</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Claymore</td>
-                                        <td>F</td>
-                                        <td>64</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>I'm Hero</td>
-                                        <td>N</td>
-                                        <td>34</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fruits basket</td>
-                                        <td>F</td>
-                                        <td>27</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Goblin's Slayer</td>
-                                        <td>N</td>
-                                        <td>15</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pretty Face</td>
-                                        <td>F</td>
-                                        <td>12</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Great Teacher Onizuka</td>
-                                        <td>F</td>
-                                        <td>40</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tokyo Ghoul</td>
-                                        <td>N</td>
-                                        <td>40</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>On-punch Man</td>
-                                        <td>N</td>
-                                        <td>14</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Monster</td>
-                                        <td>N</td>
-                                        <td>19</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Akira</td>
-                                        <td>F</td>
-                                        <td>21</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deatd Note</td>
-                                        <td>F</td>
-                                        <td>24</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Assassinassions classe room</td>
-                                        <td>F</td>
-                                        <td>17</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Angel Sanctuary</td>
-                                        <td>F</td>
-                                        <td>23</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>You're under Arrest !</td>
-                                        <td>F</td>
-                                        <td>21</td>
-                                        <td>Completed</td>
-                                    </tr> -->
+                                    
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

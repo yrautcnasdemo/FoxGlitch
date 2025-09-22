@@ -37,6 +37,12 @@ if (!empty($_POST)) {
         die("⚠️ Merci de remplir au moins le titre !");
     }
 }
+
+    $sql = "SELECT * FROM user_books WHERE user_id = :user_id";
+    $query = $db->prepare($sql);
+    $query->bindValue(":user_id", $_SESSION["user"]["id"], PDO::PARAM_INT);
+    $query->execute();
+    $books = $query->fetchAll();
 ?>
 
 
@@ -140,18 +146,10 @@ if (!empty($_POST)) {
                             <div class="select-add">
                                 <div class="volumes-panel">
 
-                                    <!--
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.009</label>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="vol">
-                                        <div class="book-vol">
-                                            <input type="checkbox" id="volume"><label for="volume">vol.010</label>
-                                        </div>
-                                    </div>-->
+                                <!-- ///////////// -->
+                                <!-- PANEL VOLUMES -->
+                                <!-- ///////////// -->
+
                                 </div>
                                 
                                 <div>
@@ -183,7 +181,7 @@ if (!empty($_POST)) {
                         </div>
                     </div>
 
-                    <!-- <h1>AJOUTER BOUTON "DELETE SELECTION" ET SELECT MANGA - COMICS PUIS REGLER LIMAGE</h1> -->
+                    <!-- <h1>AJOUTER BOUTON "DELETE SELECTION" ET SELECT MANGA - COMICS PUIS REGLER L'IMAGE</h1> -->
                     <div class="backoffice-table-edit">
                         <div class="edit-help">
                             <div class="backoffice-edit-panel">
@@ -227,69 +225,28 @@ if (!empty($_POST)) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
-                                    <td><a href=""><img src="assets/images/icones/edit.png" width="20px" alt="edit"></a></td>
-                                    <th class="l-case" scope="row">Berserk</th>
-                                    <td>N/f</td>
-                                    <td>48</td>
-                                    <td>Ongoing...</td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
-                                    <td><a href=""><img src="assets/images/icones/edit.png" width="20px" alt="edit"></a></td>
-                                    <th class="l-case" scope="row">Assassinassions classe room</th>
-                                    <td>N/f</td>
-                                    <td>48</td>
-                                    <td>Ongoing...</td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
-                                    <td><a href=""><img src="assets/images/icones/edit.png" width="20px" alt="edit"></a></td>
-                                    <th class="l-case" scope="row">Gunnm</th>
-                                    <td>Full</td>
-                                    <td>24</td>
-                                    <td>Completed</td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
-                                    <td><a href=""><img src="assets/images/icones/edit.png" width="20px" alt="edit"></a></td>
-                                    <th class="l-case" scope="row">Gunnm: Last order</th>
-                                    <td>Full</td>
-                                    <td>34</td>
-                                    <td>Completed</td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
-                                    <td><a href=""><img src="assets/images/icones/edit.png" width="20px" alt="edit"></a></td>
-                                    <th class="l-case" scope="row">Gunnm: Mars Chronicle</th>
-                                    <td>N/f</td>
-                                    <td>12</td>
-                                    <td>Ongoing...</td>
-                                    <td><input type="checkbox"></td>
-                                </tr>                                
-                                <tr>
-                                    <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
-                                    <td><a href=""><img src="assets/images/icones/edit.png" width="20px" alt="edit"></a></td>
-                                    <th class="l-case" scope="row">Dragon Ball</th>
-                                    <td>Full</td>
-                                    <td>48</td>
-                                    <td>Completed</td>
-                                    <td><input type="checkbox"></td>
-                                </tr>                                
-                                <tr>
-                                    <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
-                                    <td><a href=""><img src="assets/images/icones/edit.png" width="20px" alt="edit"></a></td>
-                                    <th class="l-case" scope="row">Binbō-gami ga !</th>
-                                    <td>N/f</td>
-                                    <td>48</td>
-                                    <td>Completed</td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
+                                <?php foreach ($books as $book): ?>
+                                    <?php 
+                                        // Si owned_volumes est NULL ou vide, on met un tableau vide
+                                        $owned = !empty($book["owned_volumes"]) ? json_decode($book["owned_volumes"], true) : [];
+                                        
+                                        // Comparer nombre possédé avec volume_count
+                                        $isFull = (count($owned) === (int)$book["volume_count"]);
+                                    ?>
+                                    <tr>
+                                        <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
+                                        <td>
+                                            <a href="edit_book.php?id=<?= $book['id'] ?>">
+                                                <img src="assets/images/icones/edit.png" width="20px" alt="edit">
+                                            </a>
+                                        </td>
+                                        <th class="l-case" scope="row"><?= htmlspecialchars($book["title"]) ?></th> 
+                                        <td><?= $isFull ? "Full" : "N/f" ?></td>
+                                        <td><?= htmlspecialchars($book["volume_count"]) ?></td>
+                                        <td><?= htmlspecialchars($book["publication"]) ?></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                         <!-- <img src="assets/images/profiles/GutsBanner.png" alt=""> -->
