@@ -1536,3 +1536,32 @@ tbody tr td:nth-child(4) {
     top: -6px;
     z-index: -1;
 }
+
+/*Edit_book.php */
+.edition-space {
+    height: 100vh;
+    background-color: rgb(27, 27, 27);
+}
+
+.book-edition-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.book_edition {
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg,#41132c, #651830);
+    box-shadow: 10px 10px 20px black;
+}
+
+
+
+
+

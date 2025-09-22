@@ -55,6 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -65,33 +67,81 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>userName</title>
 </head>
 <body>
-    <h2>Edit book</h2>
+    <main class="user-body">
+        <section class="user-space">
+            <div class="user-banner">
+                <img src="assets/images/profiles/profiles_banner/cyberpunk-night-city2.jpg" alt="">
+            </div>
 
-    <form method="post">
-        <label>Title:</label>
-        <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required><br><br>
 
-        <label>Category:</label>
-        <select name="category">
-            <option value="Manga" <?= $book['category'] === "Manga" ? "selected" : "" ?>>Manga</option>
-            <option value="Comics" <?= $book['category'] === "Comics" ? "selected" : "" ?>>Comics</option>
-        </select><br><br>
+            <div class="user-panel">
+                <article class="user-profile">
+                    <div class="user-pics">
+                        <div class="user-info">
+                            <span class="user-name"><?= $_SESSION["user"]["pseudo"]?></span>
+                            <span class="user-title">Space-Child</span>
+                        </div>
+                        <img src="assets/images/profiles/profiles_pictures/cute-anime-girl-R.jpg" width="300px" height="500px" alt="profile-pics">
+                            <div class="user-btn-panel">
+                            <a href="backoffice.php"><button>Add books</button></a>
+                                <a href="profil.php"><img class="booklist-icon" src="assets/images/icones/booklist.png" width="35px" alt=""></a>
+                                <a href="friendslist.php"><img class="hov-pro" src="assets/images/icones/Friend List(1).png" width="35px" alt=""></a>
+                                <a href=""><img class="hov-pro" src="assets/images/icones/Wishlist.png" width="35px" alt=""></a>
+                                <a href=""><img class="hov-pro" src="assets/images/icones/GearWhite-Small-icon01.png" width="35px" alt=""></a>
+                            </div>                    
+                    </div>
+                    <div class="user-about">
+                        <h3>About Me</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id ex  felis. Ut sapien orci, dictum sed massa eu, euismod tincidunt tellus.  Curabitur eget ex cursus, hendrerit dui sed, auctor metus. Aliquam  blandit a nisi a auctor. In at ex nec nunc maximus consequat in ac  magna. Nunc diam magna, eleifend sed fermentum ut, iaculis id ante.  Mauris vel quam non mauris maximus fermentum. Quisque porta et mauris  quis sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id ex  felis. Ut sapien orci, dictum sed massa eu, euismod tincidunt tellus.  Curabitur eget ex cursus, hendrerit dui sed, auctor metus. Aliquam  blandit a nisi a auctor. In at ex nec nunc maximus consequat in ac  magna. Nunc diam magna, eleifend sed fermentum ut, iaculis id ante.  Mauris vel quam non mauris maximus fermentum. Quisque porta et mauris  quis sollicitudin.</p>
+                    </div>
+                    <div class="user-social-media">
+                        <a href="#"><img src="assets/images/icones/Mediainstagram.png" width="35px" alt="instagram-icon"></a>
+                        <a href="#"><img src="assets/images/icones/Mediafacebook.png" width="35px" alt="facebook-icon"></a>
+                        <a href="#"><img src="assets/images/icones/X-twitter.png" width="35px" alt="twitter-icon"></a>
+                        <a href="#"><img src="assets/images/icones/steam.png" width="35px" alt="steam-icon"></a>
+                        <a href="#"><img src="assets/images/icones/twitch.webp" width="35px" alt="twitch-icon"></a>
+                        <a href="#"><img src="assets/images/icones/SL.png" width="35px" alt="SL-icon"></a>
+                    </div>
+                </article>
 
-        <label>Number of published volumes:</label>
-        <input type="number" id="volumeCount" name="volume_count" 
-            value="<?= (int)$book['volume_count'] ?>" min="1" max="300"><br><br>
 
-        <label>Publication:</label>
-        <select name="publication">
-            <option value="Ongoing" <?= $book['publication'] === "Ongoing" ? "selected" : "" ?>>Ongoing</option>
-            <option value="Completed" <?= $book['publication'] === "Completed" ? "selected" : "" ?>>Completed</option>
-        </select><br><br>
 
-        <h3>Owned Volumes</h3>
-        <div id="volumes-panel" class="volumes-panel"></div>
+                <!-- CODE A REPRENDRE ICI -->
+        <section class="book_edition">
+            <h2>Edit book</h2>
 
-        <button type="submit">💾 Save</button>
-    </form>
+            <form method="post">
+                <label>Title:</label>
+                <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required><br><br>
+
+                <label>Category:</label>
+                <select name="category">
+                    <option value="Manga" <?= $book['category'] === "Manga" ? "selected" : "" ?>>Manga</option>
+                    <option value="Comics" <?= $book['category'] === "Comics" ? "selected" : "" ?>>Comics</option>
+                </select><br><br>
+
+                <label>Number of published volumes:</label>
+                <input type="number" id="volumeCount" name="volume_count" 
+                    value="<?= (int)$book['volume_count'] ?>" min="1" max="300"><br><br>
+
+                <label>Publication:</label>
+                <select name="publication">
+                    <option value="Ongoing" <?= $book['publication'] === "Ongoing" ? "selected" : "" ?>>Ongoing</option>
+                    <option value="Completed" <?= $book['publication'] === "Completed" ? "selected" : "" ?>>Completed</option>
+                </select><br><br>
+
+                <h3>Owned Volumes</h3>
+                <div id="volumes-panel" class="volumes-panel"></div>
+
+                <button type="submit">💾 Save</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© Copyright 2024 De Meyer Guilain. All rights reserved.</p>
+        <p><a href="index.php">homepage</a> | <a href="project.php">About Site</a> | <a href="">Privacy Policy</a></p>
+    </footer>
 </body>
 
 
