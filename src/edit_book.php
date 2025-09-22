@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
                 <!-- CODE A REPRENDRE ICI -->
-        <section class="book_edition">
+        <section class="backoffice-panel">
             <h2>Edit book</h2>
 
             <form method="post">
