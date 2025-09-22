@@ -55,33 +55,45 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<h2>Edit book</h2>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <title>userName</title>
+</head>
+<body>
+    <h2>Edit book</h2>
 
-<form method="post">
-    <label>Title:</label>
-    <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required><br><br>
+    <form method="post">
+        <label>Title:</label>
+        <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required><br><br>
 
-    <label>Category:</label>
-    <select name="category">
-        <option value="Manga" <?= $book['category'] === "Manga" ? "selected" : "" ?>>Manga</option>
-        <option value="Comics" <?= $book['category'] === "Comics" ? "selected" : "" ?>>Comics</option>
-    </select><br><br>
+        <label>Category:</label>
+        <select name="category">
+            <option value="Manga" <?= $book['category'] === "Manga" ? "selected" : "" ?>>Manga</option>
+            <option value="Comics" <?= $book['category'] === "Comics" ? "selected" : "" ?>>Comics</option>
+        </select><br><br>
 
-    <label>Number of published volumes:</label>
-    <input type="number" id="volumeCount" name="volume_count" 
-           value="<?= (int)$book['volume_count'] ?>" min="1" max="300"><br><br>
+        <label>Number of published volumes:</label>
+        <input type="number" id="volumeCount" name="volume_count" 
+            value="<?= (int)$book['volume_count'] ?>" min="1" max="300"><br><br>
 
-    <label>Publication:</label>
-    <select name="publication">
-        <option value="Ongoing" <?= $book['publication'] === "Ongoing" ? "selected" : "" ?>>Ongoing</option>
-        <option value="Completed" <?= $book['publication'] === "Completed" ? "selected" : "" ?>>Completed</option>
-    </select><br><br>
+        <label>Publication:</label>
+        <select name="publication">
+            <option value="Ongoing" <?= $book['publication'] === "Ongoing" ? "selected" : "" ?>>Ongoing</option>
+            <option value="Completed" <?= $book['publication'] === "Completed" ? "selected" : "" ?>>Completed</option>
+        </select><br><br>
 
-    <h3>Owned Volumes</h3>
-    <div id="volumes-panel" class="volumes-panel"></div>
+        <h3>Owned Volumes</h3>
+        <div id="volumes-panel" class="volumes-panel"></div>
 
-    <button type="submit">💾 Save</button>
-</form>
+        <button type="submit">💾 Save</button>
+    </form>
+</body>
+
 
 <script>
 // On récupère les volumes déjà possédés (PHP → JS)
@@ -110,3 +122,7 @@ document.getElementById("volumeCount").addEventListener("input", function() {
 // Initialisation
 generateCheckboxes(document.getElementById("volumeCount").value);
 </script>
+
+</html>
+
+ 
