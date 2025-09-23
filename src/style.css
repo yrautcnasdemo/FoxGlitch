@@ -1565,3 +1565,63 @@ tbody tr td:nth-child(4) {
 
 
 
+/* //////////////////////////////TEST */
+
+/* container inséré dans un <tr> juste après la ligne du livre */
+.volumes-row td {
+  padding: 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.04);
+}
+
+/* slider panel (collapsible) */
+.volumes-panel {
+  overflow: scroll;
+  max-height: 0;
+  transition: max-height 350ms ease, padding 250ms ease;
+  padding: 0 16px;
+}
+
+/* when open we add class .open on panel wrapper */
+.volumes-panel.open {
+  padding: 12px 16px;
+  /* max-height large enough to contain grid; JS will set a precise max-height for smooth animation */
+  max-height: 2000px; 
+}
+
+/* grid of small squares */
+.volumes-grid {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* each volume tile */
+.vol-square {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  background: rgba(255,255,255,0.03);
+}
+
+/* small color indicator box */
+.vol-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* owned / missing colors (ajuste si tu préfères d'autres couleurs) */
+.vol-dot.owned { background: #46d160; }   /* green */
+.vol-dot.missing { background: #e74c3c; } /* red */
+
+/* responsive */
+@media (max-width:700px){
+  .vol-square { padding:4px 6px; font-size:12px; }
+  .vol-dot { width:10px; height:10px; }
+}

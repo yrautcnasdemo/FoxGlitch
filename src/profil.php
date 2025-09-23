@@ -11,8 +11,6 @@
 
 ?>
 
-<!-- 20 BOOK PAR TABLE MAXIMUM -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -102,20 +100,24 @@
                                 <tbody>
                                     <?php foreach ($books as $book): ?>
                                         <?php 
-                                            // Si owned_volumes est NULL ou vide, on met un tableau vide
                                             $owned = !empty($book["owned_volumes"]) ? json_decode($book["owned_volumes"], true) : [];
-                                            
-                                            // Comparer nombre possédé avec volume_count
-                                            $isFull = (count($owned) === (int)$book["volume_count"]);
+                                            // normalize to strings for easier comparison in JS
+                                            $owned = array_map('strval', $owned);
+                                            $owned_json = htmlspecialchars(json_encode($owned), ENT_QUOTES);
+                                            $volume_count = (int)$book["volume_count"];
                                         ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($book["title"]) ?></td>
-                                        <td><?= $isFull ? "✅" : "❌" ?></td>
-                                        <td><?= htmlspecialchars($book["volume_count"]) ?></td>
-                                        <td><?= htmlspecialchars($book["publication"]) ?></td>
-                                    </tr>
-                                    
+                                        <tr class="book-row" data-book-id="<?= (int)$book['id'] ?>"
+                                            data-volume-count="<?= $volume_count ?>"
+                                            data-owned="<?= $owned_json ?>">
+                                            <td class="title-cell toggle-volumes" style="cursor:pointer;">
+                                                <?= htmlspecialchars($book["title"]) ?>
+                                            </td>
+                                            <td><?= (count($owned) === $volume_count && $volume_count>0) ? "✅" : "❌" ?></td>
+                                            <td><?= $volume_count ?></td>
+                                            <td><?= htmlspecialchars($book["publication"]) ?></td>
+                                        </tr>
                                     <?php endforeach; ?>
+
                                 </tbody>
                             </table>
                         </div>
