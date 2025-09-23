@@ -188,8 +188,8 @@ if (!empty($_POST)) {
                                 <h1>Edit books list</h1>
                                 <div class="divider"></div>
                                 <div>
-                                    <button>Manga list</button>
-                                    <button>Comics list</button>
+                                    <button id="mangaBtn">Manga list</button>
+                                    <button id="comicsBtn">Comics list</button>
                                 </div>
                             </div>
 
@@ -232,6 +232,7 @@ if (!empty($_POST)) {
                                         $isFull = (count($owned) === (int)$book["volume_count"]);
                                     ?>
                                     <tr>
+                                        <tr data-category="<?= htmlspecialchars($book['category']) ?>">
                                         <td>
                                             <a href="delete_book.php?id=<?= $book['id'] ?>" class="delete-link" data-title="<?= htmlspecialchars($book['title']) ?>">
                                             <img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a>

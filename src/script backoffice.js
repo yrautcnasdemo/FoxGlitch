@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+// SUPPRESSION DE LIVRE DANS LE TABLEAU DE GESTION + AFFICHAGE MESSAGE CONFIRMATION
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".delete-link").forEach(link => {
         link.addEventListener("click", function(event) {
@@ -54,5 +56,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.preventDefault(); // bloque la navigation si annulation
             }
         });
+    });
+});
+
+
+
+
+
+// SWAP TABLE DANS LE TABLEAU DE GESTION ENTRE MANGA ET COMICS + REAFFICHAGE DES COULEUR - STRIP - DU TABLEAU
+document.addEventListener("DOMContentLoaded", () => {
+    const mangaBtn = document.getElementById("mangaBtn");
+    const comicsBtn = document.getElementById("comicsBtn");
+    const tableBody = document.querySelector(".backoffice-table-edit tbody");
+    const rows = tableBody.querySelectorAll("tr");
+
+    function filterCategory(category) {
+        let visibleIndex = 0;
+        rows.forEach(row => {
+            if (row.dataset.category === category) {
+                row.style.display = "";
+                // zébrure
+                row.style.background = (visibleIndex % 2 === 0)
+                    ? "linear-gradient(90deg,#41132C, #651830)"
+                    : "#252525";
+                visibleIndex++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+
+    // Par défaut → on montre les mangas
+    filterCategory("Manga");
+
+    mangaBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        filterCategory("Manga");
+    });
+
+    comicsBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        filterCategory("Comics");
     });
 });
