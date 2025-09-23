@@ -234,7 +234,10 @@ if (!empty($_POST)) {
                                         $isFull = (count($owned) === (int)$book["volume_count"]);
                                     ?>
                                     <tr>
-                                        <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
+                                        <td>
+                                            <a href="delete_book.php?id=<?= $book['id'] ?>" class="delete-link" data-title="<?= htmlspecialchars($book['title']) ?>">
+                                            <img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a>
+                                        </td>
                                         <td>
                                             <a href="edit_book.php?id=<?= $book['id'] ?>">
                                                 <img src="assets/images/icones/edit.png" width="20px" alt="edit">

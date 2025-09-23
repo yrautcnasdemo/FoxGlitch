@@ -43,3 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
         checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
     });
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".delete-link").forEach(link => {
+        link.addEventListener("click", function(event) {
+            const title = this.dataset.title; // récupère le titre du livre
+            if (!confirm(`Are you sure you want to delete "${title}" ?`)) {
+                event.preventDefault(); // bloque la navigation si annulation
+            }
+        });
+    });
+});

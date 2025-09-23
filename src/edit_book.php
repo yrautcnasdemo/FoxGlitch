@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     </div>
                                     
                                     <div>
-                                        <button type="submit" class="register-add-btn">Add to my List</button>
+                                        <button type="submit" class="register-add-btn">UPDATE</button>
                                     </div>
                                 </div>
                             </div>
@@ -183,21 +183,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 <script>
+// Script JS intégré directement a Edit_book.php pour facilité l'inclusion de json_encode
 // On récupère les volumes déjà possédés (PHP → JS)
 let owned = <?= json_encode($owned) ?>;
 
-// Générer les cases dynamiquement
 function generateCheckboxes(count) {
-    let panel = document.getElementById("volumes-panel");
+    const panel = document.getElementById("volumes-panel");
     panel.innerHTML = ""; // reset
+
     for (let i = 1; i <= count; i++) {
-        let checked = owned.includes(String(i)) || owned.includes(i) ? "checked" : "";
-        panel.innerHTML += `
-            <label style="display:inline-block; margin-right:10px;">
-                <input type="checkbox" name="volumes[]" value="${i}" ${checked}>
-                vol.${String(i).padStart(3, "0")}
-            </label>
-        `;
+        const volDiv = document.createElement("div");
+        volDiv.className = "vol";
+
+        const bookVolDiv = document.createElement("div");
+        bookVolDiv.className = "book-vol";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "volumes[]";
+        checkbox.value = i;
+        checkbox.id = `volume-${i}`;
+
+        // Cocher si déjà possédé
+        if (owned.includes(String(i)) || owned.includes(i)) {
+            checkbox.checked = true;
+        }
+
+        const label = document.createElement("label");
+        label.htmlFor = `volume-${i}`;
+        label.textContent = `vol.${String(i).padStart(3, "0")}`;
+
+        bookVolDiv.appendChild(checkbox);
+        bookVolDiv.appendChild(label);
+        volDiv.appendChild(bookVolDiv);
+        panel.appendChild(volDiv);
     }
 }
 
@@ -206,9 +225,18 @@ document.getElementById("volumeCount").addEventListener("input", function() {
     generateCheckboxes(this.value);
 });
 
-// Initialisation
+// Gestion du "Select All" simple
+document.getElementById("collection").addEventListener("change", function() {
+    const checkboxes = document.querySelectorAll("#volumes-panel input[type='checkbox']");
+    checkboxes.forEach(cb => cb.checked = this.checked);
+});
+
+// Initialisation au chargement
 generateCheckboxes(document.getElementById("volumeCount").value);
 </script>
+
+
+
 
 </html>
 
