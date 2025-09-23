@@ -190,7 +190,6 @@ if (!empty($_POST)) {
                                 <div>
                                     <button>Manga list</button>
                                     <button>Comics list</button>
-                                    <button>Delete Selection</button>
                                 </div>
                             </div>
 
@@ -221,7 +220,6 @@ if (!empty($_POST)) {
                                     <th scope="col">Full</th>
                                     <th scope="col">Vol.</th>
                                     <th scope="col">Publication</th>
-                                    <th scope="col"><input type="checkbox"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -247,7 +245,6 @@ if (!empty($_POST)) {
                                         <td><?= $isFull ? "Full" : "N/f" ?></td>
                                         <td><?= htmlspecialchars($book["volume_count"]) ?></td>
                                         <td><?= htmlspecialchars($book["publication"]) ?></td>
-                                        <td><input type="checkbox"></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
