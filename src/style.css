@@ -1562,6 +1562,8 @@ tbody tr td:nth-child(4) {
 }
 
 
-
+.backoffice-panel {
+    background-color: orange;
+}
 
 

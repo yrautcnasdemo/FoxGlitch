@@ -107,35 +107,72 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
                 <!-- CODE A REPRENDRE ICI -->
-        <section class="backoffice-panel">
-            <h2>Edit book</h2>
 
-            <form method="post">
-                <label>Title:</label>
-                <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required><br><br>
+                <section class="backoffice-panel">
+                  <form method="POST">
+                    <article class="starter">
+                        <div class="backoffice-intro">
+                            <h1>Add Books</h1>
+                            <div class="divider"></div>
+                            <div class="add-books-panel">
+                                <div class="option-book">
+                                    <div>
+                                        <span>Title:</span> 
+                                        <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required>
+                                    </div>
+                                    <div>
+                                        <label for="categorySelect">Category:</label>
+                                        <select name="category"  id="categorySelect">
+                                            <option value="Manga" <?= $book['category'] === "Manga" ? "selected" : "" ?>>Manga</option>
+                                            <option value="Comics" <?= $book['category'] === "Comics" ? "selected" : "" ?>>Comics</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="option-book">
+                                    <div>
+                                        <div>
+                                            <label for="volumeCount">Number of published volumes:</label>
+                                            <input type="number" id="volumeCount" name="volume_count" value="<?= (int)$book['volume_count'] ?>" min="1" max="300">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label>Publication:</label>
+                                        <select name="publication">
+                                            <option value="Ongoing" <?= $book['publication'] === "Ongoing" ? "selected" : "" ?>>Ongoing</option>
+                                            <option value="Completed" <?= $book['publication'] === "Completed" ? "selected" : "" ?>>Completed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="divider2"></div>
 
-                <label>Category:</label>
-                <select name="category">
-                    <option value="Manga" <?= $book['category'] === "Manga" ? "selected" : "" ?>>Manga</option>
-                    <option value="Comics" <?= $book['category'] === "Comics" ? "selected" : "" ?>>Comics</option>
-                </select><br><br>
+                        <div class="backoffice-intro">
+                            <div class="add-volumes">
+                                <p>Select volumes in your possession:</p>
+                                <div class="checkbox-select-all">
+                                    <input type="checkbox" id="collection"><label for="collection">Select All</label>
+                                </div>
+                            </div>
 
-                <label>Number of published volumes:</label>
-                <input type="number" id="volumeCount" name="volume_count" 
-                    value="<?= (int)$book['volume_count'] ?>" min="1" max="300"><br><br>
+                            <div class="select-add">
+                                <div id="volumes-panel" class="volumes-panel">
 
-                <label>Publication:</label>
-                <select name="publication">
-                    <option value="Ongoing" <?= $book['publication'] === "Ongoing" ? "selected" : "" ?>>Ongoing</option>
-                    <option value="Completed" <?= $book['publication'] === "Completed" ? "selected" : "" ?>>Completed</option>
-                </select><br><br>
+                                <!-- ///////////// -->
+                                <!-- PANEL VOLUMES -->
+                                <!-- ///////////// -->
 
-                <h3>Owned Volumes</h3>
-                <div id="volumes-panel" class="volumes-panel"></div>
+                                </div>
+                                
+                                <div>
+                                    <button type="submit" class="register-add-btn">Add to my List</button>
+                                </div>
+                            </div>
 
-                <button type="submit">💾 Save</button>
-            </form>
-        </section>
+                        </div>
+                    </article>
+                  
     </main>
 
     <footer>
