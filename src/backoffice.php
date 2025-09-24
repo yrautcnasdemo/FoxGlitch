@@ -188,9 +188,8 @@ if (!empty($_POST)) {
                                 <h1>Edit books list</h1>
                                 <div class="divider"></div>
                                 <div>
-                                    <button>Manga list</button>
-                                    <button>Comics list</button>
-                                    <button>Delete Selection</button>
+                                    <button id="mangaBtn">Manga list</button>
+                                    <button id="comicsBtn">Comics list</button>
                                 </div>
                             </div>
 
@@ -221,7 +220,6 @@ if (!empty($_POST)) {
                                     <th scope="col">Full</th>
                                     <th scope="col">Vol.</th>
                                     <th scope="col">Publication</th>
-                                    <th scope="col"><input type="checkbox"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -233,8 +231,11 @@ if (!empty($_POST)) {
                                         // Comparer nombre possédé avec volume_count
                                         $isFull = (count($owned) === (int)$book["volume_count"]);
                                     ?>
-                                    <tr>
-                                        <td><a href=""><img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a></td>
+                                    <tr data-category="<?= htmlspecialchars($book['category']) ?>">
+                                        <td>
+                                            <a href="delete_book.php?id=<?= $book['id'] ?>" class="delete-link" data-title="<?= htmlspecialchars($book['title']) ?>">
+                                            <img src="assets/images/icones/trashbox.png" width="20px" alt="trashbox"></a>
+                                        </td>
                                         <td>
                                             <a href="edit_book.php?id=<?= $book['id'] ?>">
                                                 <img src="assets/images/icones/edit.png" width="20px" alt="edit">
@@ -244,7 +245,6 @@ if (!empty($_POST)) {
                                         <td><?= $isFull ? "Full" : "N/f" ?></td>
                                         <td><?= htmlspecialchars($book["volume_count"]) ?></td>
                                         <td><?= htmlspecialchars($book["publication"]) ?></td>
-                                        <td><input type="checkbox"></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

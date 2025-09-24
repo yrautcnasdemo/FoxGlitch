@@ -46,8 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-// SUPPRESSION DE LIVRE DANS LE TABLEAU DE GESTION + AFFICHAGE MESSAGE
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".delete-link").forEach(link => {
         link.addEventListener("click", function(event) {
