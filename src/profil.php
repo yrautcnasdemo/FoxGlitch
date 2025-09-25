@@ -117,7 +117,6 @@
                                             <td><?= htmlspecialchars($book["publication"]) ?></td>
                                         </tr>
                                     <?php endforeach; ?>
-
                                 </tbody>
                             </table>
                         </div>
