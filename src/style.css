@@ -1348,7 +1348,7 @@ th, td {
     align-items: center;
     flex-wrap: wrap;
     gap: 30px;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -1569,8 +1569,7 @@ tbody tr td:nth-child(4) {
 /* container inséré dans un <tr> juste après la ligne du livre */
 .volumes-row td {
   padding: 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  background: rgba(0,0,0,0.04);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 /* slider panel (collapsible) only for profil.php */
