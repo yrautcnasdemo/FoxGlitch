@@ -1591,9 +1591,10 @@ tbody tr td:nth-child(4) {
 /* grid of small squares */
 .volumes-grid {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  align-items: center;
 }
 
 /* each volume tile */
@@ -1601,10 +1602,12 @@ tbody tr td:nth-child(4) {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  width: 74px;
   padding: 6px 8px;
   border-radius: 6px;
   font-size: 13px;
   background: rgba(255,255,255,0.03);
+  background-color: #1e1e1e;
 }
 
 /* small color indicator box */
