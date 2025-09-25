@@ -112,7 +112,7 @@
                                             <td class="title-cell toggle-volumes" style="cursor:pointer;">
                                                 <?= htmlspecialchars($book["title"]) ?>
                                             </td>
-                                            <td><?= (count($owned) === $volume_count && $volume_count>0) ? "✅" : "❌" ?></td>
+                                            <td><?= (count($owned) === $volume_count && $volume_count>0) ? "F" : "N" ?></td>
                                             <td><?= $volume_count ?></td>
                                             <td><?= htmlspecialchars($book["publication"]) ?></td>
                                         </tr>
