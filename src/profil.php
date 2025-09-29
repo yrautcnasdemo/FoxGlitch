@@ -106,9 +106,11 @@
                                             $owned_json = htmlspecialchars(json_encode($owned), ENT_QUOTES);
                                             $volume_count = (int)$book["volume_count"];
                                         ?>
-                                        <tr class="book-row" data-book-id="<?= (int)$book['id'] ?>"
+                                        <tr class="book-row" 
+                                            data-book-id="<?= (int)$book['id'] ?>"
                                             data-volume-count="<?= $volume_count ?>"
-                                            data-owned="<?= $owned_json ?>">
+                                            data-owned="<?= $owned_json ?>"
+                                            data-manga-name="<?= htmlspecialchars($book["title"], ENT_QUOTES) ?>">
                                             <td class="title-cell toggle-volumes" style="cursor:pointer;">
                                                 <?= htmlspecialchars($book["title"]) ?>
                                             </td>
@@ -301,7 +303,7 @@
 
 
 
-    <!-- Popup volumes -->
+<!-- Popup volumes -->
 <div id="volumesPopup" class="popup-volumes">
   <div class="popup-content">
     <span class="popup-close">&times;</span>
@@ -309,6 +311,7 @@
     <div class="volumes-grid"></div>
   </div>
 </div>
+
 
 </body>
 <script src="script.js"></script>

@@ -162,51 +162,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// Affiche popup de volume sur profil.php
+document.addEventListener('DOMContentLoaded', () => {
+    const volumesPopup = document.getElementById('volumesPopup');
+    const popupTitle = volumesPopup.querySelector('#popupTitle');
+    const volumesGrid = volumesPopup.querySelector('.volumes-grid');
+    const popupClose = volumesPopup.querySelector('.popup-close');
 
-// Gestion popup volumes sur la page profil.php
-document.querySelectorAll('.book-row').forEach(bookRow => {
-    bookRow.addEventListener('click', () => {
-        const popup = document.getElementById('volumesPopup');
-        const title = popup.querySelector('#popupTitle');
-        const grid = popup.querySelector('.volumes-grid');
+    // Ouvrir popup au clic sur une ligne
+    document.querySelectorAll('.book-row').forEach(bookRow => {
+        bookRow.addEventListener('click', () => {
+            const mangaName = bookRow.dataset.mangaName || "Manga inconnu";
+            popupTitle.textContent = `Volumes de ${mangaName}`;
 
-        const mangaName = bookRow.dataset.mangaName || "Manga";
-        const count = parseInt(bookRow.dataset.volumeCount, 10) || 0;
-        let owned = [];
-        try {
-            owned = JSON.parse(bookRow.dataset.owned || "[]").map(v => String(v));
-        } catch(e) {
-            owned = [];
-        }
+            // vider la grille
+            volumesGrid.innerHTML = '';
 
-        title.textContent = `Volumes de "${mangaName}"`;
-        grid.innerHTML = '';
+            const volumeCount = parseInt(bookRow.dataset.volumeCount, 10) || 0;
+            const owned = JSON.parse(bookRow.dataset.owned || "[]");
 
-        for (let i = 1; i <= count; i++) {
-            const sq = document.createElement('div');
-            sq.className = 'vol-square';
+            for (let i = 1; i <= volumeCount; i++) {
+                const sq = document.createElement('div');
+                sq.className = 'vol-square';
 
-            const dot = document.createElement('span');
-            dot.className = 'vol-dot ' + (owned.includes(String(i)) ? 'owned' : 'missing');
+                const dot = document.createElement('span');
+                dot.className = 'vol-dot ' + (owned.includes(String(i)) ? 'owned' : 'missing');
 
-            const label = document.createElement('span');
-            label.textContent = `vol.${String(i).padStart(3,'0')}`;
+                const label = document.createElement('span');
+                label.textContent = `vol.${String(i).padStart(3,'0')}`;
 
-            sq.appendChild(dot);
-            sq.appendChild(label);
-            grid.appendChild(sq);
-        }
+                sq.appendChild(dot);
+                sq.appendChild(label);
+                volumesGrid.appendChild(sq);
+            }
 
-        popup.classList.add('show');
+            // afficher popup
+            volumesPopup.style.display = 'flex';
+        });
     });
-});
 
-// Fermer popup
-document.querySelector('.popup-close').addEventListener('click', () => {
-    document.getElementById('volumesPopup').classList.remove('show');
-});
-document.getElementById('volumesPopup').addEventListener('click', (e) => {
-    if (e.target.id === 'volumesPopup') {
-        e.currentTarget.classList.remove('show');
-    }
+    // fermer popup en cliquant sur la croix
+    popupClose.addEventListener('click', () => {
+        volumesPopup.style.display = 'none';
+    });
+
+    // fermer popup en cliquant sur l'overlay
+    volumesPopup.addEventListener('click', e => {
+        if (e.target === volumesPopup) {
+            volumesPopup.style.display = 'none';
+        }
+    });
 });
