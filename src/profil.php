@@ -9,6 +9,10 @@
     $query->execute();
     $books = $query->fetchAll();
 
+    // Séparer mangas et comics
+    $mangas = array_filter($books, fn($b) => $b['category'] === 'Manga');
+    $comics = array_filter($books, fn($b) => $b['category'] === 'Comics');
+
 ?>
 
 <!DOCTYPE html>
@@ -60,12 +64,14 @@
 
 
                 <div class="full-panel">
+                    <!-- PANEL MANGA -->
                     <article class="user-manga-panel expanded">
                         <div class="banner-img">
                             <img src="assets/images/profiles/banner-manga2.jpg" alt="manga-banner">
                             <a class="btn-list" href="#">Manga List</a>
                         </div>
                         
+                        <!-- Formulaire FILTER-SEARCH -->
                         <form class="books-filter" action="">
                             <div>
                                 <span>Filter:</span><input type="text" placeholder="Title">
@@ -87,6 +93,7 @@
                                 <div class="bubble"></div>
                             </div>
                         </div>
+                        <!-- TABLE MANGA -->
                         <div class="books-table">
                             <table>
                                 <thead>
@@ -125,12 +132,15 @@
                     </article>
 
 
+
+                    <!-- PANEL COMICS -->
                     <article class="user-comics-panel expanded">
                         <div class="banner-img">
                             <img src="assets/images/profiles/banner-comics3.webp" alt="comics-banner">
                             <a class="btn-list2" href="#">Comics List</a>
                         </div>
-                        
+
+                        <!-- Formulaire FILTER-SEARCH -->
                         <form class="books-filter" action="">
                             <div>
                                 <span>Filter:</span><input type="text" placeholder="Title">
@@ -152,6 +162,8 @@
                                 <div class="bubble"></div>
                             </div>
                         </div>
+
+                    <!-- TABLE COMICS -->
                         <div class="books-table">
                             <table class="comics-table">
                                 <thead>
@@ -163,126 +175,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Berserk</td>
-                                        <td>N</td>
-                                        <td>49</td>
-                                        <td>Ongoing...</td>
+                                    <?php foreach ($comics as $book): 
+                                        $owned = !empty($book["owned_volumes"]) ? json_decode($book["owned_volumes"], true) : [];
+                                        $owned = array_map('strval', $owned);
+                                        $owned_json = htmlspecialchars(json_encode($owned), ENT_QUOTES);
+                                        $volume_count = (int)$book["volume_count"];
+                                    ?>
+                                    <tr class="book-row"
+                                        data-book-id="<?= (int)$book['id'] ?>"
+                                        data-volume-count="<?= $volume_count ?>"
+                                        data-owned="<?= $owned_json ?>"
+                                        data-manga-name="<?= htmlspecialchars($book["title"], ENT_QUOTES) ?>">
+                                        <td class="title-cell toggle-volumes" style="cursor:pointer;">
+                                            <?= htmlspecialchars($book["title"]) ?>
+                                        </td>
+                                        <td><?= (count($owned) === $volume_count && $volume_count>0) ? "F" : "N" ?></td>
+                                        <td><?= $volume_count ?></td>
+                                        <td><?= htmlspecialchars($book["publication"]) ?></td>
                                     </tr>
-                                    <tr>
-                                        <td>Gunnm</td>
-                                        <td>F</td>
-                                        <td>21</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gunnm: Last order</td>
-                                        <td>F</td>
-                                        <td>26</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gunnm: Mars Chronicle</td>
-                                        <td>N</td>
-                                        <td>10</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dragon Ball</td>
-                                        <td>F</td>
-                                        <td>51</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Binbō-gami ga !</td>
-                                        <td>F</td>
-                                        <td>16</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Claymore</td>
-                                        <td>F</td>
-                                        <td>64</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>I'm Hero</td>
-                                        <td>N</td>
-                                        <td>34</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fruits basket</td>
-                                        <td>F</td>
-                                        <td>27</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Goblin's Slayer</td>
-                                        <td>N</td>
-                                        <td>15</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pretty Face</td>
-                                        <td>F</td>
-                                        <td>12</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Great Teacher Onizuka</td>
-                                        <td>F</td>
-                                        <td>40</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tokyo Ghoul</td>
-                                        <td>N</td>
-                                        <td>40</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>On-punch Man</td>
-                                        <td>N</td>
-                                        <td>14</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Monster</td>
-                                        <td>N</td>
-                                        <td>19</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Akira</td>
-                                        <td>F</td>
-                                        <td>21</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deatd Note</td>
-                                        <td>F</td>
-                                        <td>24</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Assassinassions classe room</td>
-                                        <td>F</td>
-                                        <td>17</td>
-                                        <td>Ongoing...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Angel Sanctuary</td>
-                                        <td>F</td>
-                                        <td>23</td>
-                                        <td>Completed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>You're under Arrest !</td>
-                                        <td>F</td>
-                                        <td>21</td>
-                                        <td>Completed</td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
