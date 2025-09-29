@@ -163,126 +163,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// Gestion popup volumes sur la page profil.php
+document.querySelectorAll('.book-row').forEach(bookRow => {
+    bookRow.addEventListener('click', () => {
+        const popup = document.getElementById('volumesPopup');
+        const title = popup.querySelector('#popupTitle');
+        const grid = popup.querySelector('.volumes-grid');
 
+        const mangaName = bookRow.dataset.mangaName || "Manga";
+        const count = parseInt(bookRow.dataset.volumeCount, 10) || 0;
+        let owned = [];
+        try {
+            owned = JSON.parse(bookRow.dataset.owned || "[]").map(v => String(v));
+        } catch(e) {
+            owned = [];
+        }
 
+        title.textContent = `Volumes de "${mangaName}"`;
+        grid.innerHTML = '';
 
+        for (let i = 1; i <= count; i++) {
+            const sq = document.createElement('div');
+            sq.className = 'vol-square';
 
+            const dot = document.createElement('span');
+            dot.className = 'vol-dot ' + (owned.includes(String(i)) ? 'owned' : 'missing');
 
-document.addEventListener('DOMContentLoaded', () => {
+            const label = document.createElement('span');
+            label.textContent = `vol.${String(i).padStart(3,'0')}`;
 
-  // === recoloration des book-row (alternance noir/rouge uniquement pour elles) ===
-  function recolorRows() {
-    const rows = document.querySelectorAll('.book-row');
-    rows.forEach((row, index) => {
-      if (index % 2 === 0) {
-        row.style.backgroundColor = '#252525'; // noir
-        row.style.color = '#fff';
-      } else {
-        row.style.backgroundColor = '#500a0a'; // rouge
-        row.style.color = '#fff';
-      }
+            sq.appendChild(dot);
+            sq.appendChild(label);
+            grid.appendChild(sq);
+        }
+
+        popup.classList.add('show');
     });
-  }
+});
 
-  function createVolumesRow(bookRow) {
-    // si déjà créé juste après, retourne cet élément
-    const next = bookRow.nextElementSibling;
-    if (next && next.classList.contains('volumes-row')) return next;
-
-    const tdCount = bookRow.querySelectorAll('td').length || 4;
-    const tr = document.createElement('tr');
-    tr.className = 'volumes-row';
-    const td = document.createElement('td');
-    td.colSpan = tdCount;
-
-    const panel = document.createElement('div');
-    panel.className = 'volumes-panel';
-
-    const grid = document.createElement('div');
-    grid.className = 'volumes-grid';
-
-    panel.appendChild(grid);
-    td.appendChild(panel);
-    tr.appendChild(td);
-
-    // insert after the book row
-    bookRow.parentNode.insertBefore(tr, bookRow.nextSibling);
-
-    return tr;
-  }
-
-  function renderVolumes(bookRow, trVolumes) {
-    const panel = trVolumes.querySelector('.volumes-panel');
-    const grid = trVolumes.querySelector('.volumes-grid');
-
-    // read data
-    const count = parseInt(bookRow.dataset.volumeCount, 10) || 0;
-    let owned = [];
-    try {
-      owned = JSON.parse(bookRow.dataset.owned || "[]");
-      owned = owned.map(v => String(v)); // normalize
-    } catch(e) {
-      owned = [];
+// Fermer popup
+document.querySelector('.popup-close').addEventListener('click', () => {
+    document.getElementById('volumesPopup').classList.remove('show');
+});
+document.getElementById('volumesPopup').addEventListener('click', (e) => {
+    if (e.target.id === 'volumesPopup') {
+        e.currentTarget.classList.remove('show');
     }
-
-    // clear grid
-    grid.innerHTML = '';
-
-    for (let i = 1; i <= count; i++) {
-      const sq = document.createElement('div');
-      sq.className = 'vol-square';
-
-      const dot = document.createElement('span');
-      dot.className = 'vol-dot ' + (owned.includes(String(i)) ? 'owned' : 'missing');
-
-      const label = document.createElement('span');
-      label.textContent = `vol.${String(i).padStart(3, '0')}`;
-
-      sq.appendChild(dot);
-      sq.appendChild(label);
-
-      sq.title = owned.includes(String(i)) ? 'Owned' : 'Missing';
-      grid.appendChild(sq);
-    }
-
-    // Smooth open
-    panel.classList.remove('open');
-    panel.style.maxHeight = '0px';
-
-    requestAnimationFrame(() => {
-      panel.classList.add('open');
-      const fullHeight = panel.scrollHeight + 8;
-      panel.style.maxHeight = fullHeight + 'px';
-    });
-  }
-
-  // Attach listeners
-  document.querySelectorAll('.toggle-volumes').forEach(titleCell => {
-    titleCell.addEventListener('click', (e) => {
-      const bookRow = e.currentTarget.closest('.book-row');
-      if (!bookRow) return;
-
-      const trVolumes = createVolumesRow(bookRow);
-      const panel = trVolumes.querySelector('.volumes-panel');
-
-      if (panel.classList.contains('open')) {
-        // fermeture
-        panel.style.maxHeight = panel.scrollHeight + 'px';
-        requestAnimationFrame(() => {
-          panel.classList.remove('open');
-          panel.style.maxHeight = '0px';
-          recolorRows(); // réapplique alternance
-        });
-        return;
-      }
-
-      // ouverture
-      renderVolumes(bookRow, trVolumes);
-      recolorRows(); // réapplique alternance
-    });
-  });
-
-  // appel initial pour colorer les lignes
-  recolorRows();
-
 });
