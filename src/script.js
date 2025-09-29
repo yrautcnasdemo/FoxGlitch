@@ -168,9 +168,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
+
+  // === recoloration des book-row (alternance noir/rouge uniquement pour elles) ===
+  function recolorRows() {
+    const rows = document.querySelectorAll('.book-row');
+    rows.forEach((row, index) => {
+      if (index % 2 === 0) {
+        row.style.backgroundColor = '#252525'; // noir
+        row.style.color = '#fff';
+      } else {
+        row.style.backgroundColor = '#500a0a'; // rouge
+        row.style.color = '#fff';
+      }
+    });
+  }
 
   function createVolumesRow(bookRow) {
     // si déjà créé juste après, retourne cet élément
@@ -195,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // insert after the book row
     bookRow.parentNode.insertBefore(tr, bookRow.nextSibling);
+
     return tr;
   }
 
@@ -207,8 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let owned = [];
     try {
       owned = JSON.parse(bookRow.dataset.owned || "[]");
-      // normalize to strings for comparison
-      owned = owned.map(v => String(v));
+      owned = owned.map(v => String(v)); // normalize
     } catch(e) {
       owned = [];
     }
@@ -229,25 +241,22 @@ document.addEventListener('DOMContentLoaded', () => {
       sq.appendChild(dot);
       sq.appendChild(label);
 
-      // optional: add a title attribute or click handler to toggle owned locally
       sq.title = owned.includes(String(i)) ? 'Owned' : 'Missing';
       grid.appendChild(sq);
     }
 
-    // Smooth open: we toggle class and let CSS transition. To make animation smooth, we set exact max-height:
+    // Smooth open
     panel.classList.remove('open');
     panel.style.maxHeight = '0px';
 
-    // wait a tick so transition applies
     requestAnimationFrame(() => {
-      // compute full height (temporarily set to auto)
       panel.classList.add('open');
-      const fullHeight = panel.scrollHeight + 8; // padding margin
+      const fullHeight = panel.scrollHeight + 8;
       panel.style.maxHeight = fullHeight + 'px';
     });
   }
 
-  // Attach listeners to title cells
+  // Attach listeners
   document.querySelectorAll('.toggle-volumes').forEach(titleCell => {
     titleCell.addEventListener('click', (e) => {
       const bookRow = e.currentTarget.closest('.book-row');
@@ -256,20 +265,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const trVolumes = createVolumesRow(bookRow);
       const panel = trVolumes.querySelector('.volumes-panel');
 
-      // if panel is already open => close it
       if (panel.classList.contains('open')) {
-        // close
-        panel.style.maxHeight = panel.scrollHeight + 'px'; // set current height
+        // fermeture
+        panel.style.maxHeight = panel.scrollHeight + 'px';
         requestAnimationFrame(() => {
           panel.classList.remove('open');
           panel.style.maxHeight = '0px';
+          recolorRows(); // réapplique alternance
         });
         return;
       }
 
-      // otherwise render & open
+      // ouverture
       renderVolumes(bookRow, trVolumes);
+      recolorRows(); // réapplique alternance
     });
   });
+
+  // appel initial pour colorer les lignes
+  recolorRows();
 
 });
