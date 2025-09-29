@@ -105,26 +105,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($books as $book): ?>
-                                        <?php 
-                                            $owned = !empty($book["owned_volumes"]) ? json_decode($book["owned_volumes"], true) : [];
-                                            // normalize to strings for easier comparison in JS
-                                            $owned = array_map('strval', $owned);
-                                            $owned_json = htmlspecialchars(json_encode($owned), ENT_QUOTES);
-                                            $volume_count = (int)$book["volume_count"];
-                                        ?>
-                                        <tr class="book-row" 
-                                            data-book-id="<?= (int)$book['id'] ?>"
-                                            data-volume-count="<?= $volume_count ?>"
-                                            data-owned="<?= $owned_json ?>"
-                                            data-manga-name="<?= htmlspecialchars($book["title"], ENT_QUOTES) ?>">
-                                            <td class="title-cell toggle-volumes" style="cursor:pointer;">
-                                                <?= htmlspecialchars($book["title"]) ?>
-                                            </td>
-                                            <td><?= (count($owned) === $volume_count && $volume_count>0) ? "F" : "N" ?></td>
-                                            <td><?= $volume_count ?></td>
-                                            <td><?= htmlspecialchars($book["publication"]) ?></td>
-                                        </tr>
+                                    <?php foreach ($mangas as $book): 
+                                        $owned = !empty($book["owned_volumes"]) ? json_decode($book["owned_volumes"], true) : [];
+                                        $owned = array_map('strval', $owned);
+                                        $owned_json = htmlspecialchars(json_encode($owned), ENT_QUOTES);
+                                        $volume_count = (int)$book["volume_count"];
+                                    ?>
+                                    <tr class="book-row"
+                                        data-book-id="<?= (int)$book['id'] ?>"
+                                        data-volume-count="<?= $volume_count ?>"
+                                        data-owned="<?= $owned_json ?>"
+                                        data-manga-name="<?= htmlspecialchars($book["title"], ENT_QUOTES) ?>">
+                                        <td class="title-cell toggle-volumes" style="cursor:pointer;">
+                                            <?= htmlspecialchars($book["title"]) ?>
+                                        </td>
+                                        <td><?= (count($owned) === $volume_count && $volume_count>0) ? "F" : "N" ?></td>
+                                        <td><?= $volume_count ?></td>
+                                        <td><?= htmlspecialchars($book["publication"]) ?></td>
+                                    </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
