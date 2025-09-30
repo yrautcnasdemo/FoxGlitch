@@ -214,11 +214,13 @@
 
 <!-- Popup volumes -->
 <div id="volumesPopup" class="popup-volumes">
-  <div class="popup-content">
-    <span class="popup-close">&times;</span>
-    <h2 id="popupTitle">Volumes du manga</h2>
-    <div class="volumes-grid"></div>
-  </div>
+    <div class="popup-content">
+        <span class="popup-close">&times;</span>
+        <h2 id="popupTitle">Volumes du manga</h2>
+        <div class="volume-books-profil">
+            <div class="volumes-grid"></div>
+        </div>
+    </div>
 </div>
 
 

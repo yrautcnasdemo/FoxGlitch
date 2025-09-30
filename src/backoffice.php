@@ -159,7 +159,7 @@ if (!empty($_POST)) {
 
                         </div>
                     </article>
-                  </form>
+                </form>
 
                     <div class="divider3"></div>
 

@@ -1665,7 +1665,6 @@ tbody tr td:nth-child(4) {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 10px;
 }
 
 .vol-square {
@@ -1689,3 +1688,12 @@ tbody tr td:nth-child(4) {
 
 .vol-dot.owned { background: #4CAF50; } /* vert pour possédé */
 .vol-dot.missing { background: #F44336; } /* rouge pour manquant */
+
+
+.volume-books-profil {
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    padding: 20px;
+    background-color: yellow;
+}
