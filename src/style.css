@@ -1650,8 +1650,8 @@ tbody tr td:nth-child(4) {
     padding: 20px;
     border-radius: 10px;
     width: 80%;
-    max-width: 500px;
-    max-height: 80%;
+    width: 500px;
+    height: 600px;
     /* overflow-y: auto; */
 }
 
@@ -1668,22 +1668,20 @@ tbody tr td:nth-child(4) {
 }
 
 .vol-square {
-    width: 50px;
-    height: 50px;
-    background: #252525;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    font-size: 12px;
+    color: #D9D9D9;
+    font-family: Rajdhani-sb;
+    font-size: 16px;
+    width: 95px;
+    max-height: 30px;
+    background-color: #1e1e1e;
+    border: 1px solid #000000;
 }
 
 .vol-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-bottom: 5px;
+    width: 15px;
+    height: 15px;
+    background-color: #1e1e1e;
+    border: 1px solid #000000;
 }
 
 .vol-dot.owned { background: #00ff2f; } /* vert pour possédé */
@@ -1692,8 +1690,9 @@ tbody tr td:nth-child(4) {
 
 .volume-books-profil {
     display: flex;
-    flex-direction: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
     margin-top: 20px;
     margin-bottom: 10px;
     padding: 20px;
@@ -1708,3 +1707,16 @@ tbody tr td:nth-child(4) {
     font-family: Rajdhani-md;
 
 }
+
+
+/* 
+.vol {
+    color: #D9D9D9;
+    font-family: Rajdhani-sb;
+    font-size: 20px;
+    position: relative;
+    width: 75px;
+    height: 30px;
+    background-color: #1e1e1e;
+    border: 1px solid #000000;
+} */
