@@ -1645,14 +1645,13 @@ tbody tr td:nth-child(4) {
 }
 
 .popup-content {
-    background: #8f3e3e;
+    border: 2px solid #999999;
+    background: #222222;
     color: #fff;
     padding: 20px;
     border-radius: 10px;
-    width: 80%;
     width: 500px;
-    height: 600px;
-    /* overflow-y: auto; */
+    max-height: 600px;
 }
 
 .popup-close {
