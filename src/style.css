@@ -1646,8 +1646,8 @@ tbody tr td:nth-child(4) {
 
 .popup-content {
     border: 2px solid #999999;
-    background: #222222;
-    color: #fff;
+    background: #33003d;
+    color: gold;
     padding: 20px;
     border-radius: 10px;
     width: 500px;
