@@ -1708,14 +1708,49 @@ tbody tr td:nth-child(4) {
 }
 
 
-/* 
-.vol {
-    color: #D9D9D9;
-    font-family: Rajdhani-sb;
-    font-size: 20px;
-    position: relative;
-    width: 75px;
-    height: 30px;
-    background-color: #1e1e1e;
-    border: 1px solid #000000;
-} */
+.edit-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 20px;
+    background-color: #00ff2f;
+    width: 80%;
+    height: 80%;
+}
+
+.Myprofil{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    height: 80%;
+    margin: 10px;
+    background-color: #1f21ae;
+}
+
+.edit-pics {
+width: 300px;
+height: 550px;
+background-color: orange;
+}
+.pics{
+    height: 500px;
+    width: 300px;
+    background-color: purple;
+}
+.btn-dl-pics {
+    height: 50px;
+    width: 300px;
+    background-color: red;
+}
+
+.edit-description {
+width: 400px;
+height: 500px;
+background-color: rgb(255, 0, 255);
+margin: 30px;
+}
