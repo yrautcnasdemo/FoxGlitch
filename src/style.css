@@ -1784,3 +1784,16 @@ background-color: orange;
 .edit-description input {
     width: 250px;
 }
+
+.edit-description button {
+    background-color: #D9D9D9;
+    border: 2px solid #1e1e1e;
+    height: 30px;
+    width: 150px;
+    font-family: Rajdhani-sb;
+    color: #1e1e1e;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 25px;
+    cursor: pointer;
+}

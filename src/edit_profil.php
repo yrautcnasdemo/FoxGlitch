@@ -64,7 +64,7 @@
 
 
                 <section class="edit-panel">
-                    <article class="Myprofil">
+                    <form class="Myprofil">
                         <div class="edit-pics">
                             <div class="pics">
                                 <img src="assets/images/profiles/profiles_pictures/profile-anime-girl-eating-ramen.jpg" alt="">
@@ -78,11 +78,11 @@
                                 Pseudo: <input type="text">
                             </span>
                             <span>
-                                Title: <input type="text">
+                                Title: <input type="text" placeholder="ex: Space-Kitten">
                             </span>
-
+                            <button type="submit">Submit</button>
                         </div>
-                    </article>
+                    </form>
                 </section>
 
 
