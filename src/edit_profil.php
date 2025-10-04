@@ -44,7 +44,7 @@
                                 <a href="backoffice.php"><button>Add books</button></a>
                                 <a href="profil.php"><img class="booklist-icon" src="assets/images/icones/booklist.png" width="35px" alt="books list"></a>
                                 <a href="friendslist.php"><img class="hov-pro" src="assets/images/icones/Friend List(1).png" width="35px" alt="Friends List"></a>
-                                <a href=""><img class="hov-pro" src="assets/images/icones/GearWhite-Small-icon01.png" width="35px" alt="edit profile"></a>
+                                <a href="edit_profil.php"><img class="hov-pro" src="assets/images/icones/GearWhite-Small-icon01.png" width="35px" alt="edit profile"></a>
                                 <a href="deconnexion.php"><img class="hov-pro" src="assets/images/icones/5001a46.png" width="35px" alt="disconnection"></a>
                             </div>                    
                     </div>
@@ -75,10 +75,24 @@
                         </div>
                         <div class="edit-description">
                             <span>
-                                Pseudo: <input type="text">
+                                Pseudo:<br>
+                                <input type="text">
                             </span>
                             <span>
-                                Title: <input type="text" placeholder="ex: Space-Kitten">
+                                Title:<br>
+                                <input type="text" placeholder="ex: Space-Kitten">
+                            </span>
+                            <span>
+                                Instagram:<br>
+                                <input type="text" placeholder="Url...">
+                            </span>
+                            <span>
+                                Twitter/X:<br>
+                                <input type="text" placeholder="Url...">
+                            </span>
+                            <span>
+                                Twitch:<br>
+                                <input type="text" placeholder="Url...">
                             </span>
                             <button type="submit">Submit</button>
                         </div>
