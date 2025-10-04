@@ -67,14 +67,20 @@
                     <article class="Myprofil">
                         <div class="edit-pics">
                             <div class="pics">
-
+                                <img src="assets/images/profiles/profiles_pictures/profile-anime-girl-eating-ramen.jpg" alt="">
                             </div>
                             <div class="btn-dl-pics">
                                 <button>Download</button>
                             </div>
                         </div>
                         <div class="edit-description">
-                        
+                            <span>
+                                Pseudo: <input type="text">
+                            </span>
+                            <span>
+                                Title: <input type="text">
+                            </span>
+
                         </div>
                     </article>
                 </section>

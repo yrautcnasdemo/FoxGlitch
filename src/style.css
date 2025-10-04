@@ -1738,19 +1738,49 @@ height: 550px;
 background-color: orange;
 }
 .pics{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 5px solid rgb(234, 0, 255);
     height: 500px;
     width: 300px;
     background-color: purple;
 }
 .btn-dl-pics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 50px;
     width: 300px;
     background-color: red;
 }
+.btn-dl-pics button {
+    background-color: #D9D9D9;
+    border: 2px solid #1e1e1e;
+    height: 30px;
+    width: 150px;
+    font-family: Rajdhani-sb;
+    color: #1e1e1e;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 25px;
+    cursor: pointer;
+}
 
 .edit-description {
-width: 400px;
-height: 500px;
-background-color: rgb(255, 0, 255);
-margin: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 400px;
+    height: 500px;
+    background-color: rgb(255, 0, 255);
+    margin: 30px;
+}
+.edit-description input {
+    width: 250px;
 }
