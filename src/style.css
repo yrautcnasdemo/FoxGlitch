@@ -1750,8 +1750,8 @@ height: 550px;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    border-radius: 20px;
-    border: 5px solid rgb(234, 0, 255);
+    border: 2px solid gray;
+    border-radius: 5px;
     height: 500px;
     width: 300px;
     /* background-color: purple; */
@@ -1784,10 +1784,10 @@ height: 550px;
     font-size: 20px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     justify-content: center;
     gap: 15px;
-    width: 400px;
+    width: 300px;
     height: 500px;
     /* background-color: rgb(255, 0, 255); */
     margin: 30px;
@@ -1817,4 +1817,19 @@ height: 550px;
     font-size: 20px;
     border-radius: 25px;
     cursor: pointer;
+}
+
+.edit-aboutme {
+    font-family: Rajdhani-sb;
+    color: gold;
+    font-size: 20px;
+    margin: 30px;
+}
+
+.edit-aboutme textarea {
+    overflow-y: scroll;
+    width: 300px;
+    height: 300px;
+    border: 2px solid gray;
+    border-radius: 5px;
 }

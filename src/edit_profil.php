@@ -75,10 +75,6 @@
                         </div>
                         <div class="edit-description">
                             <span>
-                                Pseudo:<br>
-                                <input type="text">
-                            </span>
-                            <span>
                                 Title:<br>
                                 <input type="text" placeholder="ex: Space-Kitten">
                             </span>
@@ -95,6 +91,12 @@
                                 <input type="text" placeholder="Url...">
                             </span>
                             <button type="submit">Submit</button>
+                        </div>
+                        <div class="edit-aboutme">
+                            <span>
+                                About Me :<br>
+                                <textarea name="aboutme" id="" placeholder="About Me"></textarea>
+                            </span>
                         </div>
                     </form>
                 </section>
