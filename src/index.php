@@ -72,62 +72,59 @@ if ($_POST["form_type"] === "login") {
 // traitement inscription
 
     
-// FORMULAIRE D'INCRIPTION
-    // vérification d'envoi de formulaire pour inscription
-    if(!empty($_POST)){
-        if(isset($_POST["username"], $_POST["email"], $_POST["pass"])
-            && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass"])
-        ){
-            // Le formulaire est complet
-            // On récupère les données en les protégeants
-            $pseudo = strip_tags($_POST["username"]);
+// FORMULAIRE D'INSCRIPTION
+if (!empty($_POST) && $_POST["form_type"] === "register") {
+    if (isset($_POST["username"], $_POST["email"], $_POST["pass"]) &&
+        !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass"])) {
 
-            // Vérification back-end de l'adresse Email
-            if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-                die("Adresse email incorrect");
-            }
+        // Nettoyage des données
+        $pseudo = strip_tags($_POST["username"]);
+        $email = $_POST["email"];
+        $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
 
-            // Protection mdp
-            $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
-
-            // Ajoutez les controles souhaitez CAD : Email unique, confirmation MDP 1.01.20 /////////////////////////////////////////////////////////
-            
-
-            // On enregistre dans la BDD
-            require_once "pdo/connexionBDD.php";
-
-            // protection des données envoyer dans les VALUES
-            $sql = "INSERT INTO `users` (`username`, `email`, `pass`) VALUES (:pseudo, :email, '$pass')";
-
-            $query = $db->prepare($sql);
-
-            $query->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
-            $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-
-            $query-> execute();
-
-            // On récupère l'id du nouvel utilisateur
-            $id = $db->lastInsertId();
-
-
-            // On connecte l'utilisateur et on démare la session PHP
-            session_start();
-
-            //On stocke dans $_SESSION les informations de l'utilisateur
-            $_SESSION["user"] = [
-                "id" => $id,
-                "pseudo" => $pseudo,
-                "email" => $_POST["email"]
-            ];
-
-            // On redirige vers la page de profile (par exemple)
-            header("location: profil.php");
-
-
-        } else {
-            die("Le formulaire est incomplet");
+        // Vérification de l'email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            die("Adresse email incorrecte");
         }
+
+        // Connexion à la BDD
+        require_once "pdo/connexionBDD.php";
+
+        // Vérifier que l'email n'existe pas déjà
+        $sqlCheck = "SELECT * FROM users WHERE email = :email";
+        $queryCheck = $db->prepare($sqlCheck);
+        $queryCheck->bindValue(":email", $email, PDO::PARAM_STR);
+        $queryCheck->execute();
+        if ($queryCheck->fetch()) {
+            die("Cette adresse email est déjà utilisée");
+        }
+
+        // Insertion en base
+        $sql = "INSERT INTO users (username, email, pass) VALUES (:pseudo, :email, :pass)";
+        $query = $db->prepare($sql);
+        $query->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
+        $query->bindValue(":email", $email, PDO::PARAM_STR);
+        $query->bindValue(":pass", $pass, PDO::PARAM_STR);
+        $query->execute();
+
+        // Récupération de l'ID du nouvel utilisateur
+        $id = $db->lastInsertId();
+
+        // Connexion de l'utilisateur dans la session
+        $_SESSION["user"] = [
+            "id" => $id,
+            "pseudo" => $pseudo,
+            "email" => $email
+        ];
+
+        // Redirection vers le profil
+        header("Location: profil.php");
+        exit;
+    } else {
+        die("Le formulaire est incomplet");
     }
+}
+
 
 }
 }

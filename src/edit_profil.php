@@ -9,10 +9,6 @@
     $query->execute();
     $books = $query->fetchAll();
 
-    // Séparer mangas et comics
-    $mangas = array_filter($books, fn($b) => $b['category'] === 'Manga');
-    $comics = array_filter($books, fn($b) => $b['category'] === 'Comics');
-
 ?>
 
 <!DOCTYPE html>
